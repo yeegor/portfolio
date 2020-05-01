@@ -2,7 +2,6 @@
   "name": "wwwm",
   "version": "0.0.1",
   "description": "Where will we meet?",
-  "main": "index.js",
   "scripts": {
     "watch": "webpack-dev-server --config ./src/config/webpack.config.js"
   },
@@ -17,19 +16,28 @@
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.1",
+    "ts-loader": "^7.0.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@types/history": "^4.7.5",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.4",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7",
+    "@types/react-redux": "^7.1.7",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/redux": "^3.6.0",
     "babel-plugin-transform-rebem-jsx": "^0.3.3",
     "dotenv-webpack": "^1.7.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-redux": "^7.1.3",
-    "react-router": "^5.1.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
-    "redux": "^4.0.4"
+    "redux": "^4.0.5",
+    "typescript": "^4.0.0-dev.20200501"
   }
 }

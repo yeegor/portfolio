@@ -5,25 +5,32 @@ import { createBrowserHistory } from 'history';
 
 import HomePage from 'Route/HomePage';
 
-const BEFORE_ITEMS_TYPE = 'BEFORE_ITEMS_TYPE';
-const AFTER_ITEMS_TYPE = 'AFTER_ITEMS';
-const SWITCH_ITEMS_TYPE = 'SWITCH_ITEMS_TYPE';
+enum RouterBlockType {
+    before = 'BEFORE',
+    switch = 'SWITCH',
+    after = 'AFTER'
+}
+
+type RouteItem = {
+    component: React.ComponentElement<any, any>,
+    position: number
+}
 
 export const history = createBrowserHistory({ basename: '/' });
 
 class AppRouter extends PureComponent {
-    [BEFORE_ITEMS_TYPE] = [];
+    readonly [RouterBlockType.before] : RouteItem[] = [];
 
-    [SWITCH_ITEMS_TYPE] = [
+    readonly [RouterBlockType.switch] : RouteItem[] = [
         {
             component: <Route path='/' exact component={ HomePage }/>,
             position: 10
         }
     ];
 
-    [AFTER_ITEMS_TYPE] = [];
+    readonly [RouterBlockType.after] : RouteItem[] = [];
 
-    getSortedItems(type) {
+    getSortedItems(type : RouterBlockType) : React.ComponentElement<any, any>[] {
         return (this[type] || []).reduce(
             (acc, { component, position }) => {
                 if (!component) {
@@ -35,12 +42,13 @@ class AppRouter extends PureComponent {
                     return acc;
                 }
 
-                return { ...acc, [position]: component };
-            }, {}
+                acc[position] = component;
+                return acc;
+            }, [] as React.ComponentElement<any, any>[]
         );
     }
 
-    renderItemsOfType(type) {
+    renderItemsOfType(type: RouterBlockType) {
         return Object.entries(this.getSortedItems(type)).map(
             ([key, component]) => cloneElement(component, { key })
         );
@@ -48,11 +56,11 @@ class AppRouter extends PureComponent {
 
     renderRouterContent() {
         return (<>
-            { this.renderItemsOfType(BEFORE_ITEMS_TYPE) }
+            { this.renderItemsOfType(RouterBlockType.before) }
             <Switch>
-                { this.renderItemsOfType(SWITCH_ITEMS_TYPE) }
+                { this.renderItemsOfType(RouterBlockType.switch) }
             </Switch>
-            { this.renderItemsOfType(AFTER_ITEMS_TYPE) }
+            { this.renderItemsOfType(RouterBlockType.after) }
         </>)
     }
 

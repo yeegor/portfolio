@@ -11,8 +11,8 @@ class SearchFormContainer extends PureComponent {
         }
     };
 
-    handlePlaceInput = (event) => {
-        const { name, value } = event.target;
+    handlePlaceInput = (event : React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = (event.target);
         const { apiResponses } = this.state;
 
         if (value.length < 2) return;
@@ -21,7 +21,7 @@ class SearchFormContainer extends PureComponent {
         fetch(`${process.env.API_ENDPOINT}/places/${value}`)
             .then(res => res.json())
             .then(data => {
-                this.setState({ 
+                this.setState({
                     apiResponses: {
                         ...apiResponses,
                         [name]: data.Places
@@ -37,11 +37,11 @@ class SearchFormContainer extends PureComponent {
             handlePlaceInput
         };
     };
-    
+
     render() {
         return (
             <SearchForm
-              { ...this.containerFunctions() } 
+              { ...this.containerFunctions() }
               { ...this.state }
             />
         );

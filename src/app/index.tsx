@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
-import AppRouter from 'Route';
+import AppRouter from 'Route/.';
 
 class App extends PureComponent {
     render() {

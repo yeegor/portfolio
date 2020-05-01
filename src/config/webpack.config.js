@@ -7,8 +7,8 @@ const projectRoot = path.resolve(__dirname, '..', '..');
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 module.exports = {
-    entry: path.join(projectRoot, 'src', 'app', 'index.js'),
-    
+    entry: path.join(projectRoot, 'src', 'app', 'index.tsx'),
+
     output: {
         path: path.join(projectRoot, 'dist'),
         filename: 'bundle.js',
@@ -25,6 +25,11 @@ module.exports = {
                 use: ['babel-loader']
             },
             {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+            {
                 test: /\.s(a|c)ss$/,
                 use: [
                     'style-loader',
@@ -38,7 +43,7 @@ module.exports = {
             }
         ]
     },
-    
+
     plugins: [
         new HtmlWebpackPlugin({
             template: path.join(projectRoot, 'assets', 'index.html')
@@ -55,7 +60,7 @@ module.exports = {
         }),
         new Dotenv()
     ],
-    
+
     resolve: {
         alias: {
             Route: path.resolve(projectRoot, 'src', 'app', 'route'),
@@ -64,9 +69,9 @@ module.exports = {
             Util: path.resolve(projectRoot, 'src', 'app', 'util'),
             Request: path.resolve(projectRoot, 'src', 'app', 'request')
         },
-        extensions: ['.js', '.scss']
+        extensions: ['.js', '.scss', '.tsx']
     },
-    
+
     devServer: {
         watchContentBase: true,
         historyApiFallback: true
