@@ -12,6 +12,7 @@
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
     "babel-loader": "^8.0.6",
+    "file-loader": "^6.0.0",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",
@@ -32,12 +33,14 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/redux": "^3.6.0",
     "babel-plugin-transform-rebem-jsx": "^0.3.3",
+    "css-loader": "^3.5.3",
     "dotenv-webpack": "^1.7.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
-    "typescript": "^4.0.0-dev.20200501"
+    "typescript": "^4.0.0-dev.20200501",
+    "url-loader": "^4.1.0"
   }
 }

@@ -4,9 +4,8 @@ import SearchForm from 'Component/SearchForm';
 class HomePage extends PureComponent {
     render() {
         return (
-            <div>
-                <h1>Homepage!</h1>
-                <SearchForm />
+            <div className="HomePage">
+                <h1 className="HomePage-Heading">Yegor Batov</h1>
             </div>
         );
     }

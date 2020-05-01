@@ -4,6 +4,7 @@ import { Router } from 'react-router';
 import { createBrowserHistory } from 'history';
 
 import HomePage from 'Route/HomePage';
+import 'Style/main';
 
 enum RouterBlockType {
     before = 'BEFORE',

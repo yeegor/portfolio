@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 
 const projectRoot = path.resolve(__dirname, '..', '..');
+const publicPath = path.resolve(projectRoot, 'src', 'config', 'public');
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 module.exports = {
@@ -12,7 +13,7 @@ module.exports = {
     output: {
         path: path.join(projectRoot, 'dist'),
         filename: 'bundle.js',
-        publicPath: '/'
+        publicPath: '/',
     },
 
     devtool: 'inline-source-map',
@@ -22,7 +23,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: ['babel-loader']
+                use: ['babel-loader'],
             },
             {
                 test: /\.tsx?$/,
@@ -34,31 +35,47 @@ module.exports = {
                 use: [
                     'style-loader',
                     {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
                         loader: 'sass-loader',
                         options: {
-                            sourceMap: isDevelopment
-                        }
-                    }
-                ]
-            }
-        ]
+                            sourceMap: isDevelopment,
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                use: [
+                    // 'file-loader',
+                    'url-loader'
+                ],
+            },
+        ],
     },
 
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.join(projectRoot, 'assets', 'index.html')
+            template: path.join(publicPath, 'index.html'),
         }),
+
         new webpack.ProvidePlugin({
-            React: 'react'
+            React: 'react',
         }),
+
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify(process.env.NODE_ENV),
                 REBEM_ELEM_DELIM: JSON.stringify('-'),
-                REBEM_MOD_DELIM: JSON.stringify('_')
-            }
+                REBEM_MOD_DELIM: JSON.stringify('_'),
+            },
         }),
-        new Dotenv()
+
+        new Dotenv(),
     ],
 
     resolve: {
@@ -67,13 +84,13 @@ module.exports = {
             Component: path.resolve(projectRoot, 'src', 'app', 'component'),
             Style: path.resolve(projectRoot, 'src', 'app', 'style'),
             Util: path.resolve(projectRoot, 'src', 'app', 'util'),
-            Request: path.resolve(projectRoot, 'src', 'app', 'request')
+            Request: path.resolve(projectRoot, 'src', 'app', 'request'),
         },
-        extensions: ['.js', '.scss', '.tsx']
+        extensions: ['.js', '.scss', '.tsx'],
     },
 
     devServer: {
         watchContentBase: true,
-        historyApiFallback: true
-    }
+        historyApiFallback: true,
+    },
 };
