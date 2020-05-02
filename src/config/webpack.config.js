@@ -16,6 +16,13 @@ module.exports = {
         publicPath: '/',
     },
 
+    devServer: {
+        clientLogLevel: 'warning',
+        publicPath: '/',
+        watchContentBase: true,
+        historyApiFallback: true,
+    },
+
     devtool: 'inline-source-map',
 
     module: {
@@ -31,13 +38,24 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 100000000
+                        }
+                    }
+                ],
+            },
+            {
                 test: /\.s(a|c)ss$/,
                 use: [
                     'style-loader',
                     {
                         loader: 'css-loader',
                         options: {
-                            sourceMap: true
+                            sourceMap: isDevelopment
                         }
                     },
                     {
@@ -46,13 +64,6 @@ module.exports = {
                             sourceMap: isDevelopment,
                         },
                     },
-                ],
-            },
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    // 'file-loader',
-                    'url-loader'
                 ],
             },
         ],
@@ -87,10 +98,5 @@ module.exports = {
             Request: path.resolve(projectRoot, 'src', 'app', 'request'),
         },
         extensions: ['.js', '.scss', '.tsx'],
-    },
-
-    devServer: {
-        watchContentBase: true,
-        historyApiFallback: true,
     },
 };

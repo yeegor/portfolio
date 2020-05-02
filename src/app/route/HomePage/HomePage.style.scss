@@ -1,0 +1,22 @@
+.HomePage {
+    &-Welcome {
+        width: 30%;
+
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+
+        text-align: center;
+
+        &Heading {
+            font-family: 'Nova Mono', sans-serif;
+            font-weight: 300;
+            letter-spacing: 3rem;
+            text-transform: uppercase;
+        }
+
+        &Text {
+            font-weight: 100;
+        }
+    }
+}
