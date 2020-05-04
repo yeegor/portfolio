@@ -16,14 +16,19 @@ module.exports = {
         publicPath: '/',
     },
 
-    devServer: {
-        clientLogLevel: 'warning',
-        publicPath: '/',
-        watchContentBase: true,
-        historyApiFallback: true,
-    },
-
-    devtool: 'inline-source-map',
+    ...(() => {
+        return isDevelopment
+            ? {
+                devServer: {
+                    clientLogLevel: 'warning',
+                    publicPath: '/',
+                    watchContentBase: true,
+                    historyApiFallback: true,
+                },
+                devtool: 'inline-source-map'
+            }
+            : null;
+    })(),
 
     module: {
         rules: [
@@ -41,9 +46,10 @@ module.exports = {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 use: [
                     {
-                        loader: 'url-loader',
+                        loader: 'file-loader',
                         options: {
-                            limit: 100000000
+                            name: '[name].[ext]',
+                            outputPath: 'fonts/'
                         }
                     }
                 ],
@@ -71,7 +77,10 @@ module.exports = {
 
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.join(publicPath, 'index.html'),
+            template: path.join(
+                publicPath,
+                isDevelopment ? 'index.development.html' : 'index.production.html'
+            )
         }),
 
         new webpack.ProvidePlugin({
@@ -80,9 +89,7 @@ module.exports = {
 
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-                REBEM_ELEM_DELIM: JSON.stringify('-'),
-                REBEM_MOD_DELIM: JSON.stringify('_'),
+                NODE_ENV: JSON.stringify(process.env.NODE_ENV)
             },
         }),
 

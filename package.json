@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Where will we meet?",
   "scripts": {
-    "watch": "webpack-dev-server --config ./src/config/webpack.config.js"
+    "dev": "webpack-dev-server --config ./src/config/webpack.config.js",
+    "build": "NODE_ENV=production webpack -p --config ./src/config/webpack.config.js"
   },
   "author": "Jegors Batovs <yegor.batov@gmail.com>",
   "license": "ISC",
